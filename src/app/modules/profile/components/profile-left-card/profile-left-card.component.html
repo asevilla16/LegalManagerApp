@@ -1,0 +1,36 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-column align-items-center m-t-30"> <img
+                src="../assets/images/users/5.jpg"
+                class="img-circle" width="150" />
+            <h4 class="card-title m-t-10">{{fullName}}</h4>
+            <h6 class="card-subtitle">{{ userInfo()?.role | titlecase}}</h6>
+            <div class="row text-center justify-content-md-center">
+                <div class="row-4 mr-4"><a href="javascript:void(0)"
+                        class="link"><i class="ti-user"></i> <font
+                            class="font-medium">254</font></a></div>
+                <div class="row-4"><a href="javascript:void(0)"
+                        class="link"><i class="ti-image"></i> <font
+                            class="font-medium">54</font></a></div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <hr> </div>
+    <div class="card-body"> <small class="text-muted">Email address
+        </small>
+        <h6>{{ userInfo()?.email }}</h6> <small
+            class="text-muted p-t-30 db">Phone</small>
+        <h6>{{userInfo()?.phone }}</h6>
+
+        <small class="text-muted p-t-30 db">Social
+            Profile</small>
+        <br />
+        <button class="btn btn-circle btn-secondary mr-2"><i
+                class="fa fa-facebook"></i></button>
+        <button class="btn btn-circle btn-secondary mr-2"><i
+                class="fa fa-twitter"></i></button>
+        <button class="btn btn-circle btn-secondary"><i
+                class="fa fa-youtube"></i></button>
+    </div>
+</div>

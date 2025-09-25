@@ -1,0 +1,4 @@
+nav.sidebar-nav ul#sidebarnav li.active {
+  background: transparent;
+  color: #ffffff;
+}

@@ -1,0 +1,222 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="caseForm" (ngSubmit)="handleSubmit()">
+                    <div class="form-body">
+                        <h3 class="card-title">Información del Caso</h3>
+                        <hr>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Número de
+                                        Caso</label>
+                                    <input type="text" id="caseNumber"
+                                        class="form-control"
+                                        formControlName="caseNumber"
+                                        placeholder="CASE-2024-001">
+
+                                    <small
+                                        *ngIf="caseForm.get('caseNumber')?.invalid && (caseForm.get('caseNumber')?.dirty || caseForm.get('caseNumber')?.touched)"
+                                        class="form-control-feedback">
+                                        Número de Caso is required </small>
+
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Número de Caso del
+                                        Tribunal</label>
+                                    <input type="text" id="courtCaseNumber"
+                                        class="form-control"
+                                        formControlName="courtCaseNumber"
+                                        placeholder="TRB-2024-001">
+
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Cliente</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="clientId">
+                                        <option selected>Seleccionar Tipo de
+                                            Caso</option>
+                                        @for(client of clients(); track
+                                        client.id){
+                                        <option
+                                            [value]="client.id">{{getClientName(client)}}</option>
+                                        }
+                                    </select>
+                                    <small
+                                        *ngIf="caseForm.get('client')?.invalid && (caseForm.get('client')?.dirty || caseForm.get('client')?.touched)"
+                                        class="form-control-feedback">
+                                        Cliente es requerido </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Título del
+                                        Caso</label>
+                                    <input type="text" id="title"
+                                        class="form-control"
+                                        formControlName="title"
+                                        placeholder="Pérez vs. García - Divorcio Consensual">
+
+                                    <small
+                                        *ngIf="caseForm.get('title')?.invalid && (caseForm.get('title')?.dirty || caseForm.get('title')?.touched)"
+                                        class="form-control-feedback">
+                                        Título del Caso is required </small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de
+                                        Caso</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="caseTypeId">
+                                        <option selected>Seleccionar Tipo de
+                                            Caso</option>
+                                        @for(type of caseTypes(); track
+                                        type.id){
+                                        <option
+                                            [value]="type.id">{{type.name}}</option>
+                                        }
+                                    </select>
+
+                                    <small
+                                        *ngIf="caseForm.get('caseTypeId')?.invalid && (caseForm.get('caseTypeId')?.dirty || caseForm.get('caseTypeId')?.touched)"
+                                        class="form-control-feedback">
+                                        Tipo de Caso is required </small>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Estado del
+                                        Caso</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="caseStatusId">
+                                        <option value>Seleccionar
+                                            Estado</option>
+                                        @for(status of caseStatuses(); track
+                                        status.id){
+                                        <option
+                                            [value]="status.id">{{status.name}}</option>
+                                        }
+                                    </select>
+
+                                    <small
+                                        *ngIf="caseForm.get('caseStatusId')?.invalid && (caseForm.get('caseStatusId')?.dirty || caseForm.get('caseStatusId')?.touched)"
+                                        class="form-control-feedback">
+                                        Estado del Caso is required </small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de
+                                        Tribunal</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="courtTypeId">
+                                        <option value>Seleccionar Tipo de
+                                            Tribunal</option>
+                                        @for(courtType of courtTypes(); track
+                                        courtType.id){
+                                        <option
+                                            [value]="courtType.id">{{courtType.name}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Fecha de
+                                        Presentación</label>
+                                    <input type="date" class="form-control"
+                                        formControlName="filingDate"
+                                        placeholder="dd/mm/yyyy">
+
+                                    <small
+                                        *ngIf="caseForm.get('filingDate')?.invalid && (caseForm.get('filingDate')?.dirty || caseForm.get('filingDate')?.touched)"
+                                        class="form-control-feedback">
+                                        Fecha de Presentación is required
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Abogado
+                                        Primario</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="primaryAttorneyId">
+                                        <option value>Seleccionar Abogado
+                                            Primario</option>
+                                        @for(user of users(); track user?.id){
+                                        <option
+                                            [value]="user?.id">{{user?.firstName}}
+                                            {{user?.lastName}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Abogado
+                                        Originador</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="originatingAttorneyId">
+                                        <option value>Seleccionar Abogado
+                                            Originador</option>
+                                        @for(user of users(); track user.id){
+                                        <option
+                                            [value]="user?.id">{{user?.firstName}}
+                                            {{user?.lastName}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Descripción</label>
+                                    <textarea id="description"
+                                        class="form-control"
+                                        formControlName="description"
+                                        rows="4"
+                                        placeholder="Descripción detallada del caso..."></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success mr-2"> <i
+                                class="fa fa-check"></i> Save</button>
+                        <button type="button"
+                            class="btn btn-inverse">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+<!-- ============================================================== -->
+<!-- Stats box -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center">
+                        <span class="lstick m-r-20"></span>
+                        <img src="./assets/images/icon/staff.png"
+                            alt="Clients" />
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Total Clientes</h6>
+                        <h2 class="m-t-0">{{totalClients}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center">
+                        <span class="lstick m-r-20"></span>
+                        <img src="../assets/images/icon/income.png"
+                            alt="Lawyers" />
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Total Casos</h6>
+                        <h2 class="m-t-0">{{ totalCases }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center">
+                        <span class="lstick m-r-20"></span>
+                        <img src="../assets/images/icon/expense.png"
+                            alt="Hearings" />
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Casos Abiertos</h6>
+                        <h2 class="m-t-0">{{openCases}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex no-block">
+                    <div class="m-r-20 align-self-center">
+                        <span class="lstick m-r-20"></span>
+                        <img src="../assets/images/icon/expense.png"
+                            alt="Hearings" />
+                    </div>
+                    <div class="align-self-center">
+                        <h6 class="text-muted m-t-10 m-b-0">Casos cerrados</h6>
+                        <h2 class="m-t-0">{{closedCases}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ============================================================== -->
+<!-- Cases overview chart -->
+<!-- ============================================================== -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex">
+                    <div>
+                        <h3 class="card-title m-b-5"><span
+                                class="lstick"></span>Cases Overview </h3>
+                        <h6 class="card-subtitle">Year {{currentYear}}</h6>
+                    </div>
+                    <div class="ml-auto">
+                        <ul class="list-inline">
+                            <li>
+                                <div class="d-flex">
+                                    <i
+                                        class="fa fa-circle font-10 m-r-10 text-primary m-t-10"></i>
+                                    <div>
+                                        <h2 class="m-b-0">{{openCases}}</h2>
+                                        <h6 class="text-muted">Open Cases</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <i
+                                        class="fa fa-circle font-10 m-r-10 text-info m-t-10"></i>
+                                    <div>
+                                        <h2 class="m-b-0">87</h2>
+                                        <h6 class="text-muted">Closed Cases</h6>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex">
+                                    <i
+                                        class="fa fa-circle font-10 m-r-10 text-muted m-t-10"></i>
+                                    <div>
+                                        <h2 class="m-b-0">36</h2>
+                                        <h6 class="text-muted">Pending
+                                            Hearings</h6>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <app-line-chart></app-line-chart>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <app-pie-chart></app-pie-chart>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <app-bar-chart></app-bar-chart>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-cases-of-month-table></app-cases-of-month-table>

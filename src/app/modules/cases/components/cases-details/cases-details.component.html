@@ -1,0 +1,306 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="caseForm" (ngSubmit)="handleSubmit()">
+                    <div class="form-body">
+                        <h3 class="card-title">Información del Caso</h3>
+                        <hr>
+                        <div class="row p-t-20">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Número de
+                                        Caso</label>
+                                    <input type="text" id="caseNumber"
+                                        class="form-control"
+                                        formControlName="caseNumber"
+                                        placeholder="CASE-2024-001">
+
+                                    <small
+                                        *ngIf="caseForm.get('caseNumber')?.invalid && (caseForm.get('caseNumber')?.dirty || caseForm.get('caseNumber')?.touched)"
+                                        class="form-control-feedback">
+                                        Número de Caso is required </small>
+
+                                </div>
+                            </div>
+                            <!--/span-->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Número de Caso del
+                                        Tribunal</label>
+                                    <input type="text" id="courtCaseNumber"
+                                        class="form-control"
+                                        formControlName="courtCaseNumber"
+                                        placeholder="TRB-2024-001">
+
+                                </div>
+                            </div>
+                            <!--/span-->
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Cliente</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="clientId">
+                                        <option selected>Seleccionar Tipo de
+                                            Caso</option>
+                                        @for(client of clients(); track
+                                        client.id){
+                                        <option
+                                            [value]="client.id">{{getClientName(client)}}</option>
+                                        }
+                                    </select>
+                                    <small
+                                        *ngIf="caseForm.get('client')?.invalid && (caseForm.get('client')?.dirty || caseForm.get('client')?.touched)"
+                                        class="form-control-feedback">
+                                        Cliente es requerido </small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Título del
+                                        Caso</label>
+                                    <input type="text" id="title"
+                                        class="form-control"
+                                        formControlName="title"
+                                        placeholder="Pérez vs. García - Divorcio Consensual">
+
+                                    <small
+                                        *ngIf="caseForm.get('title')?.invalid && (caseForm.get('title')?.dirty || caseForm.get('title')?.touched)"
+                                        class="form-control-feedback">
+                                        Título del Caso is required </small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de
+                                        Caso</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="caseTypeId">
+                                        <option selected>Seleccionar Tipo de
+                                            Caso</option>
+                                        @for(type of caseTypes(); track
+                                        type.id){
+                                        <option
+                                            [value]="type.id">{{type.name}}</option>
+                                        }
+                                    </select>
+
+                                    <small
+                                        *ngIf="caseForm.get('caseTypeId')?.invalid && (caseForm.get('caseTypeId')?.dirty || caseForm.get('caseTypeId')?.touched)"
+                                        class="form-control-feedback">
+                                        Tipo de Caso is required </small>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Estado del
+                                        Caso</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="caseStatusId">
+                                        <option value>Seleccionar
+                                            Estado</option>
+                                        @for(status of caseStatuses(); track
+                                        status.id){
+                                        <option
+                                            [value]="status.id">{{status.name}}</option>
+                                        }
+                                    </select>
+
+                                    <small
+                                        *ngIf="caseForm.get('caseStatusId')?.invalid && (caseForm.get('caseStatusId')?.dirty || caseForm.get('caseStatusId')?.touched)"
+                                        class="form-control-feedback">
+                                        Estado del Caso is required </small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Tipo de
+                                        Tribunal</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="courtTypeId">
+                                        <option value>Seleccionar Tipo de
+                                            Tribunal</option>
+                                        @for(courtType of courtTypes(); track
+                                        courtType.id){
+                                        <option
+                                            [value]="courtType.id">{{courtType.name}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Fecha de
+                                        Presentación</label>
+                                    <input type="date" class="form-control"
+                                        formControlName="filingDate"
+                                        placeholder="dd/mm/yyyy">
+
+                                    <small
+                                        *ngIf="caseForm.get('filingDate')?.invalid && (caseForm.get('filingDate')?.dirty || caseForm.get('filingDate')?.touched)"
+                                        class="form-control-feedback">
+                                        Fecha de Presentación is required
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Abogado
+                                        Primario</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="primaryAttorneyId">
+                                        <option value>Seleccionar Abogado
+                                            Primario</option>
+                                        @for(user of users(); track user?.id){
+                                        <option
+                                            [value]="user?.id">{{user?.firstName}}
+                                            {{user?.lastName}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Abogado
+                                        Originador</label>
+                                    <select class="form-control custom-select"
+                                        formControlName="originatingAttorneyId">
+                                        <option value>Seleccionar Abogado
+                                            Originador</option>
+                                        @for(user of users(); track user.id){
+                                        <option
+                                            [value]="user?.id">{{user?.firstName}}
+                                            {{user?.lastName}}</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Descripción</label>
+                                    <textarea id="description"
+                                        class="form-control"
+                                        formControlName="description"
+                                        rows="4"
+                                        placeholder="Descripción detallada del caso..."></textarea>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--/row-->
+
+                        <h3 class="box-title m-t-40">Documentos</h3>
+                        <hr>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div
+                                    class="border border-2 border-dashed border-primary rounded p-4 mb-3"
+                                    style="cursor: pointer;"
+                                    onclick="document.getElementById('dragDropInput').click()">
+                                    <div class="text-center">
+                                        <div class="mb-3">
+                                            <svg width="48" height="48"
+                                                fill="currentColor"
+                                                class="text-info"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z" />
+                                                <path
+                                                    d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z" />
+                                            </svg>
+                                        </div>
+                                        <h6 class="mb-2">Click to upload
+                                            files</h6>
+                                        <p
+                                            class="text-muted text-center small mb-0">or
+                                            drag
+                                            and drop files here</p>
+                                    </div>
+                                    <input type="file" id="dragDropInput"
+                                        (change)="onFileSelected($event)"
+                                        class="d-none" multiple>
+                                </div>
+                                <div class="m-2">
+                                    @if(selectedDocument){
+                                    <small id="fileInfo"
+                                        class="text-muted">{{selectedDocument.name}}</small>
+                                    } @else {
+                                    <small id="fileInfo" class="text-muted">No
+                                        files selected</small>
+                                    }
+                                </div>
+
+                                <button type="button" (click)="uploadFile()"
+                                    class="btn btn-success mr-2 mb-2"> <i
+                                        class="fa fa-check"></i> Save
+                                    Document</button>
+
+                            </div>
+                        </div>
+                        <!-- Fin carga de Archivos -->
+                        <div class="row">
+                            @for(doc of caseDocuments(); track doc.id){
+                            <div class="col-lg-3 col-xl-2">
+                                <div class="file-man-box"><a href
+                                        class="file-close"><i
+                                            class="fa fa-times-circle"></i></a>
+                                    <div class="file-img-box">
+                                        <img
+                                            [src]="getIconForDocument(doc)"
+                                            alt="icon">
+                                    </div>
+                                    <a (click)="downloadFile(doc.fileName)"
+                                        class="file-download">
+                                        <i class="fa fa-download"></i>
+                                    </a>
+                                    <div class="file-man-title">
+                                        <h5
+                                            class="mb-0 text-overflow">{{doc.fileName}}</h5>
+                                        <p class="mb-0"><small>{{doc?.size |
+                                                number : '1.2-2'}}
+                                                kb</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            }
+                        </div>
+
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success mr-2"> <i
+                                class="fa fa-check"></i> Save</button>
+                        <button type="button"
+                            class="btn btn-inverse">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

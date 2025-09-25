@@ -1,0 +1,75 @@
+ <table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Número de Caso</th>
+            <th>Título</th>
+            <th>Cliente</th>
+            <th>Estado</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(case of cases(); track case.id){
+        <tr>
+            <td>{{$index + 1 }}</td>
+            <td>{{case.caseNumber}}</td>
+            <td>{{case.title}}</td>
+            <td>{{getClientName(case)}}</td>
+            <td>
+                <div
+                    class="label label-table label-success">Abierto</div>
+            </td>
+            <td>{{case.createdAt | date}}</td>
+            <td>
+                <button class="btn btn-outline-info btn-sm mr-2"
+                    (click)="editCase(case.id)">Editar</button>
+                <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+            </td>
+        </tr>
+
+        } @empty {
+        <tr>
+            <td colspan="6" class="text-center">No hay casos
+                disponibles.</td>
+        </tr>
+        }
+    </tbody>
+</table>
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-end">
+        <li class="page-item" [class.disabled]="pagination.currentPage === 1">
+            <a class="page-link" (click)="goToPage(1)" aria-label="First">
+                <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item" [class.disabled]="pagination.currentPage === 1">
+            <a class="page-link" (click)="goToPage(pagination.currentPage - 1)"
+                aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <li class="page-item"
+            *ngFor="let page of getPages()"
+            [class.active]="page === pagination.currentPage">
+            <a class="page-link" (click)="goToPage(page)">{{page}}</a>
+        </li>
+
+        <li class="page-item"
+            [class.disabled]="pagination.currentPage === totalPages">
+            <a class="page-link" (click)="goToPage(pagination.currentPage + 1)"
+                aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li class="page-item"
+            [class.disabled]="pagination.currentPage === totalPages">
+            <a class="page-link" (click)="goToPage(totalPages)"
+                aria-label="Last">
+                <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>
