@@ -4,8 +4,10 @@ export interface CaseDocument {
   clientId?: string;
   title?: string;
   filePath: string;
+  originalName: string;
   fileName: string;
   size: string;
+  mimeType: string;
   documentTypeId: string;
   isPrivileged?: boolean;
   isEvidence?: boolean;

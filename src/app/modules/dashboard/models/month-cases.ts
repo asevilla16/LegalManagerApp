@@ -19,3 +19,9 @@ interface StatisticUser {
   firstName: string;
   lastName: string;
 }
+
+export interface MonthlyCases {
+  month: string;
+  year: number;
+  count: number;
+}

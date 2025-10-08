@@ -37,39 +37,70 @@
         }
     </tbody>
 </table>
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-end">
-        <li class="page-item" [class.disabled]="pagination.currentPage === 1">
-            <a class="page-link" (click)="goToPage(1)" aria-label="First">
-                <span aria-hidden="true">&laquo;&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item" [class.disabled]="pagination.currentPage === 1">
-            <a class="page-link" (click)="goToPage(pagination.currentPage - 1)"
-                aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
 
-        <li class="page-item"
-            *ngFor="let page of getPages()"
-            [class.active]="page === pagination.currentPage">
-            <a class="page-link" (click)="goToPage(page)">{{page}}</a>
-        </li>
+<div class="row">
 
-        <li class="page-item"
-            [class.disabled]="pagination.currentPage === totalPages">
-            <a class="page-link" (click)="goToPage(pagination.currentPage + 1)"
-                aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-        <li class="page-item"
-            [class.disabled]="pagination.currentPage === totalPages">
-            <a class="page-link" (click)="goToPage(totalPages)"
-                aria-label="Last">
-                <span aria-hidden="true">&raquo;&raquo;</span>
-            </a>
-        </li>
-    </ul>
-</nav>
+    <div class="col-md-6 col-lg-4">
+        <div class="d-flex align-items-center">
+            <label for="pageSizeSelect" class="form-label me-2 mb-0">Items per
+                page: </label>
+            <select
+                id="pageSizeSelect"
+                class="form-select form-control-line ml-2"
+                style="width: auto;"
+                [ngModel]="pagination.pageSize"
+                (ngModelChange)="onPageSizeChange($event)">
+                <option *ngFor="let size of pageSizeOptions" [value]="size">
+                    {{size}}
+                </option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 text-center">
+        <small class="text-muted">
+            Showing {{getCurrentRange()}} of {{pagination.totalItems}} items
+        </small>
+    </div>
+
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-end">
+            <li class="page-item"
+                [class.disabled]="pagination.currentPage === 1">
+                <a class="page-link" (click)="goToPage(1)" aria-label="First">
+                    <span aria-hidden="true">&laquo;&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item"
+                [class.disabled]="pagination.currentPage === 1">
+                <a class="page-link"
+                    (click)="goToPage(pagination.currentPage - 1)"
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+
+            <li class="page-item"
+                *ngFor="let page of getPages()"
+                [class.active]="page === pagination.currentPage">
+                <a class="page-link" (click)="goToPage(page)">{{page}}</a>
+            </li>
+
+            <li class="page-item"
+                [class.disabled]="pagination.currentPage === totalPages">
+                <a class="page-link"
+                    (click)="goToPage(pagination.currentPage + 1)"
+                    aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+            <li class="page-item"
+                [class.disabled]="pagination.currentPage === totalPages">
+                <a class="page-link" (click)="goToPage(totalPages)"
+                    aria-label="Last">
+                    <span aria-hidden="true">&raquo;&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

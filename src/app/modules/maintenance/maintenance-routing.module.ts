@@ -4,6 +4,8 @@ import { CaseTypesComponent } from './case-types/case-types.component';
 import { CaseStatusesComponent } from './case-statuses/case-statuses.component';
 import { CaseTypesFormComponent } from './case-types/case-types-form/case-types-form.component';
 import { CaseStatusesFormComponent } from './case-statuses/case-statuses-form/case-statuses-form.component';
+import { UsersComponent } from './users/users.component';
+import { UsersFormComponent } from './users/components/users-form/users-form.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,21 @@ const routes: Routes = [
     path: 'add-new-case-status',
     component: CaseStatusesFormComponent,
     data: { title: 'Agregar Estado de Caso' },
+  },
+  {
+    path: 'users',
+    component: UsersComponent,
+    data: { title: 'Usuarios' },
+  },
+  {
+    path: 'add-new-user',
+    component: UsersFormComponent,
+    data: { title: 'Agregar Usuario' },
+  },
+  {
+    path: 'users/edit/:id',
+    component: UsersFormComponent,
+    data: { title: 'Editar Usuario' },
   },
 ];
 

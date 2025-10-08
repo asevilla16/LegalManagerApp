@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
-import { MonthCases } from '../models/month-cases';
+import { MonthCases, MonthlyCases } from '../models/month-cases';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -16,7 +16,7 @@ export class DashboardService {
   }
 
   getCasesByStatus() {
-    return this.http.get<{ status: string; _count: any }[]>(
+    return this.http.get<{ status: string; count: any }[]>(
       this.baseUrl + 'cases/cases-by-status'
     );
   }
@@ -39,5 +39,15 @@ export class DashboardService {
 
   getCasesOfTheMonth(): Observable<MonthCases> {
     return this.http.get<MonthCases>(this.baseUrl + 'cases/cases-of-the-month');
+  }
+
+  getCasesByMonth(): Observable<MonthlyCases[]> {
+    return this.http.get<MonthlyCases[]>(this.baseUrl + `cases/cases-by-month`);
+  }
+
+  getCasesByPracticeArea() {
+    return this.http.get<{ practiceArea: string; count: any }[]>(
+      this.baseUrl + 'cases/cases-by-practice-area'
+    );
   }
 }

@@ -22,4 +22,8 @@ export class CaseStatusesService {
   getCaseStatus(): Observable<CaseStatus> {
     return this.http.get<CaseStatus>(this.baseUrl);
   }
+
+  deleteCaseStatus(id: number): Observable<void> {
+    return this.http.get<void>(`${this.baseUrl}/deactivate/${id}`);
+  }
 }

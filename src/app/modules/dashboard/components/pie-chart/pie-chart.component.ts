@@ -1,6 +1,7 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, ViewChild } from '@angular/core';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { BaseChartDirective } from 'ng2-charts';
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-pie-chart',
@@ -8,7 +9,10 @@ import { BaseChartDirective } from 'ng2-charts';
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.css',
 })
-export class PieChartComponent {
+export class PieChartComponent implements OnChanges {
+  @Input() data: any;
+  @Input() labels: any;
+
   public pieChartType: ChartType = 'pie';
 
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
@@ -23,11 +27,25 @@ export class PieChartComponent {
     },
   };
   public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: ['Download Sales', 'In Store Sales', 'Mail Sales'],
+    labels: [],
     datasets: [
       {
-        data: [300, 500, 100],
+        data: [],
       },
     ],
   };
+
+  constructor(private dashboardService: DashboardService) {}
+
+  ngOnChanges() {
+    this.pieChartData = {
+      labels: this.labels,
+      datasets: [
+        {
+          data: this.data,
+        },
+      ],
+    };
+    this.chart?.update();
+  }
 }

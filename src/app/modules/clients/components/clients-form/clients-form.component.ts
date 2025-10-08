@@ -14,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ClientsFormComponent {
   clientForm: FormGroup = new FormGroup({});
-  isEditMode: boolean = false;
+
   clientId: number | null = null;
 
   constructor(
@@ -32,7 +32,6 @@ export class ClientsFormComponent {
     this.route.paramMap.subscribe((params) => {
       const idParam = params.get('id');
       if (idParam) {
-        this.isEditMode = true;
         this.clientId = +idParam;
         this.loadClientData(this.clientId);
       }
@@ -86,16 +85,49 @@ export class ClientsFormComponent {
   }
 
   handleSubmit() {
-    if (this.clientForm.valid) {
-      this.createClient();
-    } else {
+    if (!this.clientForm.valid) {
       console.log('Form is invalid');
       this.clientForm.markAllAsTouched(); // Mark all fields as touched to show validation errors
     }
+    if (this.clientId) {
+      this.editClient();
+    } else {
+      this.createClient();
+    }
+  }
+
+  editClient() {
+    const client: Client = this.clientForm.value;
+    if (client.clientType === 'CORPORATE') {
+      client.firstName = '';
+      client.lastName = '';
+      client.middleName = '';
+      client.birthDate = undefined;
+      client.gender = '';
+    }
+
+    this.clientService.updateClient(this.clientId ?? 0, client).subscribe({
+      next: (response) => {
+        this.toastr.success('Cliente actualizado', 'Éxito');
+        this.router.navigate(['/clients']);
+      },
+      error: (error) => {
+        console.error('Error updating client', error);
+      },
+    });
   }
 
   createClient() {
     const client: Client = this.clientForm.value;
+
+    if (client.clientType === 'COMPANY') {
+      client.firstName = '';
+      client.lastName = '';
+      client.middleName = '';
+      client.birthDate = undefined;
+      client.gender = '';
+    }
+
     this.authService.currentUser$.subscribe(
       (user) => (client.createdBy = user?.username || 'unknown')
     );

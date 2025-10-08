@@ -1,9 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../models/user';
 import { UserProfile } from '../../modules/profile/models/user-profile';
+import { PaginatedResponse } from '../models/PaginatedResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,11 @@ export class AuthService {
     return !!token;
   }
 
+  isAdmin(): boolean {
+    const currentUser = this.userSubject.value;
+    return currentUser?.role === 'ADMIN';
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     this.userSubject.next(null);
@@ -45,8 +51,31 @@ export class AuthService {
     return this.http.get<User[]>(this.baseURL + '/get-users');
   }
 
-  getUserById(userId: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(`${this.baseURL}/get-user/${userId}`);
+  getPaginatedUsers(
+    pageSize: number,
+    page: number
+  ): Observable<PaginatedResponse<User[]>> {
+    const params = new HttpParams().set('page', page).set('pageSize', pageSize);
+
+    return this.http.get<PaginatedResponse<User[]>>(
+      this.baseURL + '/get-paginated-users',
+      { params }
+    );
+  }
+
+  getUserById(userId: string): Observable<User> {
+    return this.http.get<User>(`${this.baseURL}/get-user/${userId}`);
+  }
+
+  registerNewUser(userData: Partial<User>): Observable<User> {
+    return this.http.post<User>(this.baseURL + '/create-user', userData);
+  }
+
+  updateUser(userId: string, userData: Partial<User>): Observable<User> {
+    return this.http.post<User>(
+      `${this.baseURL}/update-user/${userId}`,
+      userData
+    );
   }
 
   updateProfile(

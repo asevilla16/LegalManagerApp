@@ -6,6 +6,7 @@ import {
   CaseDocument,
   CreateFileDto,
 } from '../../modules/cases/models/case-document';
+import { CreateTemplateFileDto } from '../../modules/documents/models/template-document';
 
 @Injectable({
   providedIn: 'root',
@@ -36,6 +37,30 @@ export class FileUploadService {
 
     return this.http
       .post<{ secureUrl: string }>(this.baseUrl + '/case-file', formData, {
+        reportProgress: true,
+        observe: 'events',
+      })
+      .pipe(
+        map((event) => {
+          return this.getUploadPercentage(event);
+        })
+      );
+  }
+
+  uploadTemplateFile(templateFile: CreateTemplateFileDto) {
+    if (templateFile.file.size > this.maxFileSizeMB * 1024 * 1024) {
+      throw new Error(
+        `File size exceeds the maximum limit of ${this.maxFileSizeMB} MB.`
+      );
+    }
+    const formData: FormData = new FormData();
+    formData.append('file', templateFile.file);
+    formData.append('documentTypeId', templateFile.documentTypeId);
+    formData.append('versionNumber', templateFile.versionNumber);
+    formData.append('createdBy', templateFile.createdBy);
+
+    return this.http
+      .post<{ secureUrl: string }>(this.baseUrl + '/template-file', formData, {
         reportProgress: true,
         observe: 'events',
       })

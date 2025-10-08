@@ -35,4 +35,8 @@ export class ClientsService {
   createClient(client: Client): Observable<Client> {
     return this.http.post<Client>(this.baseURL, client);
   }
+
+  updateClient(clientId: number, client: Client) {
+    return this.http.patch(this.baseURL + `/${clientId}`, client);
+  }
 }

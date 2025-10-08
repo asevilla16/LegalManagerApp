@@ -1,0 +1,43 @@
+ <div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row pricing-plan">
+                    @for(plan of pricingPlans; track plan.name){
+                    <div class="col-md-3 col-xs-12 col-sm-6 no-padding">
+                        <div class="pricing-box"
+                            [class]="plan.customClass">
+                            <div class="pricing-body">
+                                <div class="pricing-header">
+                                    <h4 *ngIf="plan.isFeatured"
+                                        class="price-lable text-white bg-warning">
+                                        Popular</h4>
+                                    <h4 class="text-center">{{ plan.name }}</h4>
+                                    <h2 class="text-center"><span
+                                            class="price-sign">$</span>{{
+                                        plan.price }}</h2>
+                                    <p class="uppercase">per month</p>
+                                </div>
+                                <div class="price-table-content">
+                                    @for(feature of plan.features; track
+                                    feature.label){
+                                    <div class="price-row"><i
+                                            [class]="feature.icon"></i> {{
+                                        feature.label }}</div>
+                                    }
+                                    <div class="price-row">
+                                        <button
+                                            [class]="plan.buttonClass">
+                                            Iniciar Prueba gratuita
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

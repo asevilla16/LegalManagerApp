@@ -276,7 +276,8 @@
                                             [src]="getIconForDocument(doc)"
                                             alt="icon">
                                     </div>
-                                    <a (click)="downloadFile(doc.fileName)"
+                                    <a
+                                        (click)="downloadFile(doc.fileName, doc.originalName)"
                                         class="file-download">
                                         <i class="fa fa-download"></i>
                                     </a>

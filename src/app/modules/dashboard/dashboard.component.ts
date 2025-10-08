@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { DashboardService } from './services/dashboard.service';
-import { MonthCases } from './models/month-cases';
+import { MonthCases, MonthlyCases } from './models/month-cases';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +20,14 @@ export class DashboardComponent {
   activeCases: number = 0;
   inactiveCases: number = 0;
 
+  practiceAreaData: any[] = [];
+  practiceAreaLabels: string[] = [];
+
+  casesByStatusLabels: string[] = [];
+  casesByStatusData: any[] = [];
+
+  casesByMonth: MonthlyCases[] = [];
+
   constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
@@ -27,6 +35,15 @@ export class DashboardComponent {
     this.loadTotalClients();
     this.loadCasesByStatus();
     this.loadActiveAndInactiveCases();
+    this.loadCasesByPracticeArea();
+  }
+
+  loadCasesByPracticeArea(): void {
+    this.dashboardService.getCasesByPracticeArea().subscribe((data) => {
+      this.practiceAreaLabels = data.map((item) => item.practiceArea);
+      this.practiceAreaData = data.map((item) => item.count);
+      console.log(this.practiceAreaLabels, this.practiceAreaData);
+    });
   }
 
   loadTotalCases() {
@@ -54,21 +71,22 @@ export class DashboardComponent {
   loadCasesByStatus() {
     this.dashboardService.getCasesByStatus().subscribe({
       next: (data) => {
-        console.log({ data });
+        this.casesByStatusData = data.map((item) => item.count);
+        this.casesByStatusLabels = data.map((item) => item.status);
         data.forEach((item) => {
           switch (item.status) {
             case 'Open':
-              this.openCases = item._count.id;
-              console.log(item._count);
+              this.openCases = item.count;
+              console.log(item.count);
               break;
             case 'Closed':
-              this.closedCases = item._count.id;
+              this.closedCases = item.count;
               break;
             case 'In Progress':
-              this.inProgressCases = item._count.id;
+              this.inProgressCases = item.count;
               break;
             case 'Pending':
-              this.pendingCases = item._count.id;
+              this.pendingCases = item.count;
               break;
             default:
               break;

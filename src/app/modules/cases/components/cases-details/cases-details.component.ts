@@ -17,6 +17,7 @@ import { Case } from '../../models/case';
 import { CaseDocument, CreateFileDto } from '../../models/case-document';
 import { FileUploadService } from '../../../../core/services/file-upload.service';
 import { ToastrService } from 'ngx-toastr';
+import { fileIconSelector } from '../../../../core/utils/file-icon-selector';
 
 @Component({
   selector: 'app-cases-details',
@@ -71,7 +72,6 @@ export class CasesDetailsComponent implements OnInit, OnDestroy {
       filingDate: [new Date()],
       primaryAttorneyId: [0],
       originatingAttorneyId: [0],
-      status: ['Open'],
       createdBy: [''],
       clientId: [0],
     });
@@ -126,7 +126,6 @@ export class CasesDetailsComponent implements OnInit, OnDestroy {
         : null,
       primaryAttorneyId: caseFromDb.primaryAttorneyId,
       originatingAttorneyId: caseFromDb.originatingAttorneyId,
-      status: caseFromDb.caseStatusId,
       createdBy: caseFromDb.createdById,
       clientId: caseFromDb?.parties.find((party) => party.isClient)
         ?.clientId as number,
@@ -224,17 +223,7 @@ export class CasesDetailsComponent implements OnInit, OnDestroy {
   }
 
   getIconForDocument(doc: any): string {
-    if (doc.fileName.endsWith('.pdf')) {
-      return '../../../assets/images/icon/pdf-document-svgrepo-com.svg';
-    }
-    if (doc.fileName.endsWith('.doc') || doc.fileName.endsWith('.docx')) {
-      return '../../../assets/images/icon/word-document-svgrepo-com.svg';
-    }
-    if (doc.fileName.endsWith('.xls') || doc.fileName.endsWith('.xlsx')) {
-      return '../../../assets/images/icon/excel-document-svgrepo-com.svg';
-    }
-    // Default icon
-    return '../../../assets/images/icon/file-svgrepo-com.svg';
+    return fileIconSelector(doc.fileName);
   }
 
   onFileSelected(e: any) {
@@ -255,9 +244,9 @@ export class CasesDetailsComponent implements OnInit, OnDestroy {
         createdBy: 'asevilla16',
       };
 
-      // this.authService.currentUser$.subscribe(
-      //   (user) => (createFileDto.createdBy = user?.username || 'unknown')
-      // );
+      this.authService.currentUser$.subscribe(
+        (user) => (createFileDto.createdBy = user?.username || 'unknown')
+      );
 
       this.fileUploadService.uploadFile(createFileDto).subscribe({
         next: (res) => {
@@ -271,11 +260,23 @@ export class CasesDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  downloadFile(fileName: string) {
-    this.fileUploadService.downloadFile(fileName).subscribe({
+  downloadFile(filename: string, originalName: string) {
+    console.log({ originalName });
+    this.fileUploadService.downloadFile(filename).subscribe({
       next: (blob: Blob) => {
-        console.log(blob);
-        this.handleBlobDownload(blob, `case_${this.caseNumber}_document`);
+        // const correctBlob = new Blob([blob], { type: mimeType });
+        const fileExtension = originalName.substring(
+          originalName.lastIndexOf('.')
+        );
+        const fileNameWithoutExt = originalName.substring(
+          0,
+          originalName.lastIndexOf('.')
+        );
+
+        this.handleBlobDownload(
+          blob,
+          `${fileNameWithoutExt}_${this.caseNumber}${fileExtension}`
+        );
       },
       error: (err) => {
         console.error('Error downloading file:', err);
@@ -296,18 +297,18 @@ export class CasesDetailsComponent implements OnInit, OnDestroy {
   }
 
   handleSubmit() {
-    console.log(this.caseForm.value);
-
-    const { id, status, clientId, filingDate, ...restForm } =
+    const { id, caseStatusId, caseTypeId, clientId, filingDate, ...restForm } =
       this.caseForm.value;
 
     const caseObject = {
       ...restForm,
-      caseStatusId: status,
+      caseTypeId: +caseTypeId,
+      caseStatusId: +caseStatusId,
       caseId: id.toString(),
       clientId: +clientId,
       filingDate: new Date(filingDate),
     };
+    console.log({ caseObject });
 
     this.caseService.updateCase(this.caseId, caseObject).subscribe({
       next: (res: any) => {

@@ -15,7 +15,8 @@
             <td>{{caseStatus?.code}}</td>
             <td>
                 <button class="btn btn-outline-info btn-sm mr-2">Editar</button>
-                <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+                <button class="btn btn-outline-danger btn-sm"
+                    (click)="deleteCaseStatus(caseStatus.id)">Eliminar</button>
             </td>
         </tr>
         } @empty {

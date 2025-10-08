@@ -16,6 +16,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
 import { Chart, registerables } from 'chart.js';
+import { CoreModule } from './core/core.module';
 
 Chart.register(...registerables);
 
@@ -27,6 +28,7 @@ Chart.register(...registerables);
     SharedModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    CoreModule,
   ],
   providers: [
     provideHttpClient(withInterceptors([])),

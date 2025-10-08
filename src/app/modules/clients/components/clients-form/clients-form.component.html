@@ -112,6 +112,28 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label
+                                        class="control-label">Nombre
+                                        Empresa</label>
+                                    <input type="text" id="companyName"
+                                        class="form-control"
+                                        formControlName="companyName"
+                                        placeholder="Nombre de la empresa">
+
+                                    <small
+                                        *ngIf="clientForm.get('companyName')?.invalid && (clientForm.get('companyName')?.dirty || clientForm.get('companyName')?.touched)"
+                                        class="form-control-feedback">
+                                        Nombre de la empresa es requerido
+                                    </small>
+
+                                </div>
+                            </div>
+                        </div>
+
                         <!--/row-->
                         <div class="row">
                             <div class="col-md-6">
@@ -174,7 +196,7 @@
                                         <label
                                             class="custom-control custom-radio">
                                             <input id="radio2"
-                                                type="radio" value="CORPORATE"
+                                                type="radio" value="COMPANY"
                                                 formControlName="clientType"
                                                 class="custom-control-input">
                                             <span

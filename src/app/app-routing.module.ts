@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainLayoutComponent } from './layouts/main-layout/main-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -53,6 +54,14 @@ const routes: Routes = [
         loadChildren: () =>
           import('./modules/maintenance/maintenance.module').then(
             (m) => m.MaintenanceModule
+          ),
+        canActivate: [adminGuard],
+      },
+      {
+        path: 'pricing',
+        loadChildren: () =>
+          import('./modules/pricing/pricing.module').then(
+            (m) => m.PricingModule
           ),
       },
       {

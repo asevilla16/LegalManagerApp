@@ -18,6 +18,8 @@ export class CasesTableComponent implements OnInit {
 
   pagination: Pagination = { currentPage: 1, pageSize: 5, totalItems: 0 };
 
+  pageSizeOptions = [5, 10, 15, 20, 25, 50];
+
   constructor(private caseService: CasesService, private router: Router) {}
 
   ngOnInit(): void {
@@ -70,6 +72,22 @@ export class CasesTableComponent implements OnInit {
       pages.push(i);
     }
     return pages;
+  }
+
+  onPageSizeChange(newPageSize: number) {
+    this.pagination.pageSize = newPageSize;
+    this.pagination.currentPage = 1;
+    this.loadCases();
+  }
+
+  getCurrentRange(): string {
+    const start =
+      (this.pagination.currentPage - 1) * this.pagination.pageSize + 1;
+    const end = Math.min(
+      this.pagination.currentPage * this.pagination.pageSize,
+      this.pagination.totalItems
+    );
+    return `${start} - ${end}`;
   }
 
   editCase(id: number) {

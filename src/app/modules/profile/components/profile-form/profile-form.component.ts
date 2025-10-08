@@ -31,7 +31,7 @@ export class ProfileFormComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       email: [''],
-      phone: [''],
+      phoneNumber: [''],
       role: [''],
       password: [''],
       confirmPassword: [''],
@@ -64,13 +64,12 @@ export class ProfileFormComponent implements OnInit {
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             email: currentUser.email,
-            phone: currentUser.phone,
+            phoneNumber: currentUser.phoneNumber,
             role: currentUser.role,
             username: currentUser.username,
             middleName: currentUser.middleName,
             barNumber: currentUser.barNumber,
             barRegistrationDate: currentUser.barRegistrationDate,
-            isAttorney: currentUser.isAttorney,
           });
         }
       });

@@ -33,7 +33,7 @@
                         <span class="hide-menu">Facturas</span>
                     </a>
                 </li> -->
-                <li>
+                <li *ngIf="authService.isAdmin()">
                     <a
                         class="has-arrow waves-effect waves-dark"
                         href="#"
@@ -48,7 +48,14 @@
                                 Estados</a></li>
                         <li><a routerLink="/maintenance/court-type">Tipos de
                                 corte</a></li>
+                        <li><a routerLink="/maintenance/users">Usuarios</a></li>
                     </ul>
+                </li>
+                <li>
+                    <a routerLink="/pricing">
+                        <i class="mdi mdi-tag"></i>
+                        <span class="hide-menu">Precios</span>
+                    </a>
                 </li>
 
             </ul>
