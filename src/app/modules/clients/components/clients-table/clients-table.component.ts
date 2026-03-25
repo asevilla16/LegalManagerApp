@@ -19,7 +19,10 @@ export class ClientsTableComponent implements OnInit {
 
   pageSizeOptions = [5, 10, 15, 20, 25, 50];
 
-  constructor(private clientsService: ClientsService, private router: Router) {}
+  constructor(
+    private clientsService: ClientsService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.getClients();
@@ -29,7 +32,7 @@ export class ClientsTableComponent implements OnInit {
     this.clientsService
       .getPaginatedClients(
         this.pagination.pageSize,
-        this.pagination.currentPage
+        this.pagination.currentPage,
       )
       .subscribe({
         next: (res: PaginatedResponse<Client[]>) => {
@@ -39,7 +42,6 @@ export class ClientsTableComponent implements OnInit {
             currentPage: res.page,
             totalItems: res.totalItems,
           };
-          console.log(res);
         },
         error: (error) => {
           console.error('Error fetching clients:', error);
@@ -88,7 +90,7 @@ export class ClientsTableComponent implements OnInit {
       (this.pagination.currentPage - 1) * this.pagination.pageSize + 1;
     const endItem = Math.min(
       this.pagination.currentPage * this.pagination.pageSize,
-      this.pagination.totalItems
+      this.pagination.totalItems,
     );
     return `${startItem} - ${endItem}`;
   }

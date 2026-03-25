@@ -1,13 +1,33 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { catchError, map, of } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
-  if (!authService.isLoggedIn()) {
+
+  const token = authService.getToken();
+
+  if (!token) {
     router.navigate(['/auth']);
     return false;
   }
-  return true;
+
+  return authService.verifyTokenWithBackend(token).pipe(
+    map((res) => {
+      if (res.valid) {
+        return true;
+      }
+      authService.logout();
+      router.navigate(['/auth']);
+      return false;
+    }),
+    catchError((error: any) => {
+      authService.logout();
+      router.navigate(['/auth']);
+      return of(false);
+    })
+  );
 };

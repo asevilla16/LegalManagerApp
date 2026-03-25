@@ -6,7 +6,9 @@
                     <div class="form-body">
                         <h3 class="card-title">Informacion de cliente</h3>
                         <hr>
-                        <div class="row p-t-20">
+                        <div
+                            *ngIf="clientForm.get('clientType')?.value == 'INDIVIDUAL'"
+                            class="row p-t-20">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="control-label">Nombre</label>
@@ -23,7 +25,8 @@
                                 </div>
                             </div>
                             <!--/span-->
-                            <div class="col-md-6">
+                            <div
+                                class="col-md-6">
                                 <div class="form-group">
                                     <label
                                         class="control-label">Apellido</label>

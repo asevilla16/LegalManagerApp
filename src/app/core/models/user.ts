@@ -6,7 +6,7 @@ export interface User {
   username?: string;
   email: string;
   password?: string;
-  phoneNumber?: string;
+  phone?: string;
   role?: string;
   token?: string; // 'PARTNER', 'ASSOCIATE', 'PARALEGAL', 'ADMIN', 'SECRETARY'
   barNumber?: string;

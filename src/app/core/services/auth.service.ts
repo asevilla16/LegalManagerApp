@@ -6,6 +6,12 @@ import { User } from '../models/user';
 import { UserProfile } from '../../modules/profile/models/user-profile';
 import { PaginatedResponse } from '../models/PaginatedResponse';
 
+interface TokenPayload {
+  exp: number;
+  sub: string;
+  username: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,6 +42,36 @@ export class AuthService {
   isAdmin(): boolean {
     const currentUser = this.userSubject.value;
     return currentUser?.role === 'ADMIN';
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
+  hasValidToken(): boolean {
+    const token = this.getToken();
+    if (!token) return false;
+    return !this.verifyTokenWithBackend(token);
+  }
+
+  verifyTokenWithBackend(token: string): Observable<any> {
+    return this.http.post(`${this.baseURL}/verify-token`, { token });
+  }
+
+  checkTokenValidity(): void {
+    const token = this.getToken() ?? '';
+
+    this.verifyTokenWithBackend(token).subscribe({
+      next: (res: any) => {
+        if (res.valid) {
+          return true;
+        }
+        return false;
+      },
+      error: (err) => {
+        console.log('Token invalid or expired', err);
+      },
+    });
   }
 
   logout(): void {

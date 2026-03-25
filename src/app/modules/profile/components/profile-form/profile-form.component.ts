@@ -19,7 +19,7 @@ export class ProfileFormComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
   ) {
     this.buildForm();
     this.getCurrentUserId();
@@ -31,7 +31,7 @@ export class ProfileFormComponent implements OnInit {
       firstName: [''],
       lastName: [''],
       email: [''],
-      phoneNumber: [''],
+      phone: [''],
       role: [''],
       password: [''],
       confirmPassword: [''],
@@ -64,7 +64,7 @@ export class ProfileFormComponent implements OnInit {
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             email: currentUser.email,
-            phoneNumber: currentUser.phoneNumber,
+            phone: currentUser.phone,
             role: currentUser.role,
             username: currentUser.username,
             middleName: currentUser.middleName,

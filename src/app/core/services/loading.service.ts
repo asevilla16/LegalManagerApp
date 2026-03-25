@@ -12,7 +12,6 @@ export class LoadingService {
   show(): void {
     this.requestCount++;
     this.loadingSubject.next(true);
-    console.log(this.requestCount);
   }
 
   hide(): void {

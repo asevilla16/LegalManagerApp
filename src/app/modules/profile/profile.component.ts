@@ -37,7 +37,7 @@ export class ProfileComponent implements OnInit {
             firstName: currentUser.firstName,
             lastName: currentUser.lastName,
             email: currentUser.email,
-            phoneNumber: currentUser.phoneNumber,
+            phone: currentUser.phone,
             role: currentUser.role,
             username: currentUser.username,
             middleName: currentUser.middleName,

@@ -18,6 +18,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { Chart, registerables } from 'chart.js';
 import { CoreModule } from './core/core.module';
 import { loadingInterceptor } from './core/interceptors/loading.interceptor';
+import { tokenInterceptor } from './core/interceptors/token.interceptor';
 
 Chart.register(...registerables);
 
@@ -32,7 +33,7 @@ Chart.register(...registerables);
     CoreModule,
   ],
   providers: [
-    provideHttpClient(withInterceptors([loadingInterceptor])),
+    provideHttpClient(withInterceptors([loadingInterceptor, tokenInterceptor])),
     provideCharts(withDefaultRegisterables()),
   ],
   bootstrap: [AppComponent],
