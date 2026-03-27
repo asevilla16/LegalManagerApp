@@ -1,6 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CaseType } from '../../models/case-type';
 import { CaseTypesService } from '../../services/case-types.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-case-types-table',
@@ -11,7 +12,10 @@ import { CaseTypesService } from '../../services/case-types.service';
 export class CaseTypesTableComponent implements OnInit {
   caseTypes = signal<CaseType[]>([]);
 
-  constructor(private caseTypesService: CaseTypesService) {}
+  constructor(
+    private caseTypesService: CaseTypesService,
+    private router: Router,
+  ) {}
 
   ngOnInit() {
     this.getCaseTypes();
@@ -27,5 +31,26 @@ export class CaseTypesTableComponent implements OnInit {
         console.error('Error fetching clients:', error);
       },
     });
+  }
+
+  editCaseType(caseType: CaseType) {
+    this.router.navigate(['/maintenance/case-types/edit', caseType.id]);
+  }
+
+  deleteCaseType(caseType: CaseType) {
+    if (
+      confirm(
+        `¿Estás seguro de que deseas eliminar el tipo de caso "${caseType.name}"?`,
+      )
+    ) {
+      this.caseTypesService.deleteCaseType(caseType.id).subscribe({
+        next: () => {
+          this.getCaseTypes();
+        },
+        error: (error) => {
+          console.error('Error deleting case type:', error);
+        },
+      });
+    }
   }
 }

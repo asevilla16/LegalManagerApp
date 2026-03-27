@@ -18,4 +18,16 @@ export class CaseTypesService {
   createCaseType(caseType: CaseType): Observable<CaseType> {
     return this.http.post<CaseType>(this.baseURL, caseType);
   }
+
+  getCaseType(id: number): Observable<CaseType> {
+    return this.http.get<CaseType>(`${this.baseURL}/${id}`);
+  }
+
+  updateCaseType(id: number, caseType: CaseType): Observable<CaseType> {
+    return this.http.patch<CaseType>(`${this.baseURL}/${id}`, caseType);
+  }
+
+  deleteCaseType(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseURL}/${id}`);
+  }
 }

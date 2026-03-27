@@ -12,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UsersComponent } from './users/users.component';
 import { UsersTableComponent } from './users/components/users-table/users-table.component';
 import { UsersFormComponent } from './users/components/users-form/users-form.component';
+import { CategoriesComponent } from './categories/categories.component';
+import { CategoriesTableComponent } from './categories/categories-table/categories-table.component';
+import { CategoriesFormComponent } from './categories/categories-form/categories-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { UsersFormComponent } from './users/components/users-form/users-form.com
     UsersComponent,
     UsersTableComponent,
     UsersFormComponent,
+    CategoriesComponent,
+    CategoriesTableComponent,
+    CategoriesFormComponent,
   ],
   imports: [
     CommonModule,

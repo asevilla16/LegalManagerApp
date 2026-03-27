@@ -4,25 +4,23 @@
             <th>#</th>
             <th>Nombre</th>
             <th>Codigo</th>
-            <th>Categoria</th>
-            <th>Dias de Estatuto de Limitaciones</th>
+            <th>Descripcion</th>
             <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
-        @for(caseType of caseTypes(); track caseType.id){
+        @for(category of categories(); track category.id){
 
         <tr>
-            <td>{{caseType?.id}}</td>
-            <td>{{caseType?.name}}</td>
-            <td>{{caseType?.code}}</td>
-            <td>{{caseType?.category}}</td>
-            <td>{{caseType?.statuteOfLimitationDays}}</td>
+            <td>{{category?.id}}</td>
+            <td>{{category?.name}}</td>
+            <td>{{category?.code}}</td>
+            <td>{{category?.description}}</td>
             <td>
                 <button class="btn btn-outline-info btn-sm mr-2"
-                    (click)="editCaseType(caseType)">Editar</button>
+                    (click)="editCategory(category)">Editar</button>
                 <button class="btn btn-outline-danger btn-sm"
-                    (click)="deleteCaseType(caseType)">Eliminar</button>
+                    (click)="deleteCategory(category.id)">Eliminar</button>
             </td>
         </tr>
         } @empty {
