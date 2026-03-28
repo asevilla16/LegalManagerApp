@@ -92,10 +92,15 @@ export class CaseTypesFormComponent implements OnInit {
 
   handleSave() {
     if (this.caseTypeForm.valid) {
-      const { id, isActive, category, ...caseTypeData } =
+      const { id, isActive, categoryId, ...caseTypeData } =
         this.caseTypeForm.value;
 
-      this.caseTypesService.createCaseType(caseTypeData).subscribe({
+      const newCaseType = {
+        ...caseTypeData,
+        categoryId: +categoryId,
+      };
+
+      this.caseTypesService.createCaseType(newCaseType).subscribe({
         next: (response) => {
           console.log('Case type created successfully:', response);
           this.toastr.success('Tipo de caso creado exitosamente');
@@ -118,7 +123,6 @@ export class CaseTypesFormComponent implements OnInit {
     const updatedCaseType = {
       ...caseTypeData,
       categoryId: +categoryId,
-      isActive: !!isActive,
     };
 
     this.caseTypesService
