@@ -2,7 +2,7 @@ export interface CaseType {
   id: number;
   name: string;
   code: string;
-  category: string; //'CIVIL' | 'CRIMINAL' | 'FAMILY' | 'LABOR' | 'COMMERCIAL' | 'ADMINISTRATIVE' | 'TAX' | 'MIXED';
+  categoryId: number; //'CIVIL' | 'CRIMINAL' | 'FAMILY' | 'LABOR' | 'COMMERCIAL' | 'ADMINISTRATIVE' | 'TAX' | 'MIXED';
   statuteOfLimitationDays?: number;
   description?: string;
   isActive: boolean;

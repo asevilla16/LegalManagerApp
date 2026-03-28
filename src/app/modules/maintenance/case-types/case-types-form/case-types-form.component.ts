@@ -48,7 +48,7 @@ export class CaseTypesFormComponent implements OnInit {
       id: [0],
       name: [''],
       code: [''],
-      category: [''],
+      categoryId: [''],
       statuteOfLimitationDays: [0],
       description: [''],
       isActive: [true],
@@ -92,7 +92,8 @@ export class CaseTypesFormComponent implements OnInit {
 
   handleSave() {
     if (this.caseTypeForm.valid) {
-      const { id, isActive, ...caseTypeData } = this.caseTypeForm.value;
+      const { id, isActive, category, ...caseTypeData } =
+        this.caseTypeForm.value;
 
       this.caseTypesService.createCaseType(caseTypeData).subscribe({
         next: (response) => {
@@ -111,10 +112,17 @@ export class CaseTypesFormComponent implements OnInit {
   }
 
   handleEdit() {
-    const { id, category, isActive, ...caseTypeData } = this.caseTypeForm.value;
+    const { id, categoryId, isActive, ...caseTypeData } =
+      this.caseTypeForm.value;
+
+    const updatedCaseType = {
+      ...caseTypeData,
+      categoryId: +categoryId,
+      isActive: !!isActive,
+    };
 
     this.caseTypesService
-      .updateCaseType(this.caseTypeId ?? 0, caseTypeData)
+      .updateCaseType(this.caseTypeId ?? 0, updatedCaseType)
       .subscribe({
         next: (response) => {
           console.log('Case type updated successfully:', response);
