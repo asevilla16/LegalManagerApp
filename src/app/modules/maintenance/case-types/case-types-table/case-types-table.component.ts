@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CaseType } from '../../models/case-type';
 import { CaseTypesService } from '../../services/case-types.service';
 import { Router } from '@angular/router';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-case-types-table',
@@ -52,5 +53,9 @@ export class CaseTypesTableComponent implements OnInit {
         },
       });
     }
+  }
+
+  getCategoryName(category?: Category): string {
+    return category ? category.name : '';
   }
 }
